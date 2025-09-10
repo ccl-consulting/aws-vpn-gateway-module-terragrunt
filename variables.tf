@@ -650,7 +650,7 @@ variable "enable_flow_logs" {
 variable "log_retention_days" {
   description = "Number of days to retain VPN logs in CloudWatch"
   type        = number
-  default     = 30
+  default     = 365
   validation {
     condition = contains([
       1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653
@@ -666,5 +666,15 @@ variable "flow_log_iam_role_arn" {
   validation {
     condition     = var.flow_log_iam_role_arn == null || can(regex("^arn:aws[a-zA-Z-]*:iam::[0-9]{12}:role/.+", var.flow_log_iam_role_arn))
     error_message = "Flow log IAM role ARN must be a valid IAM role ARN."
+  }
+}
+
+variable "log_group_kms_key_id" {
+  description = "The ARN of the KMS Key to use when encrypting log data"
+  type        = string
+  default     = null
+  validation {
+    condition     = var.log_group_kms_key_id == null || can(regex("^arn:aws[a-zA-Z-]*:kms:[a-z0-9-]+:[0-9]{12}:key/[a-z0-9-]+", var.log_group_kms_key_id)) || can(regex("^[a-z0-9-]+$", var.log_group_kms_key_id))
+    error_message = "KMS Key ID must be a valid KMS key ARN, key ID, or alias."
   }
 }

@@ -98,10 +98,11 @@ module "vpn_gateway" {
     }
   ]
 
-  # Logging
-  enable_vpn_logging = true
-  enable_flow_logs   = true
-  log_retention_days = 90
+  # Logging with encryption
+  enable_vpn_logging     = true
+  enable_flow_logs       = true
+  log_retention_days     = 365
+  log_group_kms_key_id   = "arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012"
   
   route_table_ids = [
     "rtb-12345678",
@@ -242,7 +243,8 @@ dependency "vpc" {
 | enable_route_propagation | Enable route propagation | `bool` | `true` |
 | enable_vpn_logging | Enable VPN logging | `bool` | `false` |
 | enable_flow_logs | Enable VPC Flow Logs | `bool` | `false` |
-| log_retention_days | Log retention in days | `number` | `30` |
+| log_retention_days | Log retention in days | `number` | `365` |
+| log_group_kms_key_id | KMS Key ID for log encryption | `string` | `null` |
 
 ### Tunnel Configuration Inputs
 
@@ -298,8 +300,10 @@ Both Tunnel 1 and Tunnel 2 support the following configuration options:
 
 ### Monitoring and Logging
 
-- **CloudWatch Integration**: Optional VPN connection logging
+- **CloudWatch Integration**: Optional VPN connection logging with KMS encryption
 - **VPC Flow Logs**: Network traffic monitoring
+- **Compliance-Ready**: Default 1-year log retention meets most compliance requirements
+- **Encryption at Rest**: CloudWatch logs encrypted with KMS keys
 - **Configurable Retention**: Flexible log retention policies
 
 ## Best Practices

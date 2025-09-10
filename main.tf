@@ -147,6 +147,7 @@ resource "aws_cloudwatch_log_group" "vpn_logs" {
   count             = var.create_vpn_connection && var.enable_vpn_logging ? 1 : 0
   name              = "/aws/vpn/${local.vpn_connection_name}"
   retention_in_days = var.log_retention_days
+  kms_key_id        = var.log_group_kms_key_id
 
   tags = merge(
     local.common_tags,
