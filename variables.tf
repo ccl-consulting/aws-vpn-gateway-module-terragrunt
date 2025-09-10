@@ -373,7 +373,7 @@ variable "tunnel1_preshared_key" {
   default     = null
   sensitive   = true
   validation {
-    condition     = var.tunnel1_preshared_key == null || (var.tunnel1_preshared_key != null && length(var.tunnel1_preshared_key) >= 8 && length(var.tunnel1_preshared_key) <= 64)
+    condition     = var.tunnel1_preshared_key == null || can(length(var.tunnel1_preshared_key) >= 8 && length(var.tunnel1_preshared_key) <= 64)
     error_message = "Preshared key must be between 8 and 64 characters long."
   }
 }
@@ -563,7 +563,7 @@ variable "tunnel2_preshared_key" {
   default     = null
   sensitive   = true
   validation {
-    condition     = var.tunnel2_preshared_key == null || (var.tunnel2_preshared_key != null && length(var.tunnel2_preshared_key) >= 8 && length(var.tunnel2_preshared_key) <= 64)
+    condition     = var.tunnel2_preshared_key == null || can(length(var.tunnel2_preshared_key) >= 8 && length(var.tunnel2_preshared_key) <= 64)
     error_message = "Preshared key must be between 8 and 64 characters long."
   }
 }
