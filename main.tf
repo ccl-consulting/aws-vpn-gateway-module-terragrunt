@@ -72,7 +72,7 @@ resource "aws_vpn_connection" "this" {
   vpn_gateway_id                          = var.existing_transit_gateway_id == null ? (var.create_vpn_gateway ? aws_vpn_gateway.this[0].id : var.existing_vpn_gateway_id) : null
   transit_gateway_id                      = var.existing_transit_gateway_id
   static_routes_only                      = var.static_routes_only
-  enable_acceleration                     = var.existing_transit_gateway_id != null ? var.enable_acceleration : false
+  enable_acceleration                     = var.existing_transit_gateway_id != null ? var.enable_acceleration : null
   local_ipv4_network_cidr                 = var.local_ipv4_network_cidr
   remote_ipv4_network_cidr                = var.remote_ipv4_network_cidr
   local_ipv6_network_cidr                 = var.local_ipv6_network_cidr

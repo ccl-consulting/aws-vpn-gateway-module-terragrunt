@@ -209,10 +209,10 @@ variable "remote_ipv6_network_cidr" {
 variable "outside_ip_address_type" {
   description = "Indicates whether the VPN tunnels process IPv4 or IPv6 traffic"
   type        = string
-  default     = "ipv4"
+  default     = "PublicIpv4"
   validation {
-    condition     = contains(["ipv4", "ipv6"], var.outside_ip_address_type)
-    error_message = "Outside IP address type must be either 'ipv4' or 'ipv6'."
+    condition     = contains(["PublicIpv4", "PrivateIpv4"], var.outside_ip_address_type)
+    error_message = "Outside IP address type must be either 'PublicIpv4' or 'PrivateIpv4'."
   }
 }
 
